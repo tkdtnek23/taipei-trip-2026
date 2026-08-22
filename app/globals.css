@@ -672,8 +672,8 @@ a:focus-visible { outline: 3px solid #ffbe35; outline-offset: 3px; }
     width: 100dvw;
     max-width: none;
     margin-inline: 0;
-    padding-right: 0;
-    padding-left: 0;
+    padding-right: max(8px, env(safe-area-inset-right));
+    padding-left: max(8px, env(safe-area-inset-left));
   }
   .schedule,
   .day-section,
