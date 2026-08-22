@@ -514,7 +514,22 @@ tbody tr:hover { background: color-mix(in srgb, var(--accent) 7%, var(--surface)
 }
 .schedule-check input:disabled + .schedule-checkmark { opacity: .45; }
 tr[data-completed="true"] td { color: color-mix(in srgb, var(--muted) 78%, var(--ink)); }
-tr[data-completed="true"] .place-cell > strong {
+.completed-summary-cell { padding: 10px 14px; vertical-align: middle; }
+.completed-summary {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 28px;
+}
+.completed-summary b {
+  flex: 0 0 auto;
+  color: var(--accent);
+  font: 750 11px/1.4 var(--font-geist-mono), monospace;
+}
+.completed-summary strong {
+  min-width: 0;
+  font-size: 12px;
+  line-height: 1.35;
   opacity: .65;
   text-decoration: line-through;
   text-decoration-thickness: 1.5px;
@@ -647,6 +662,11 @@ a:focus-visible { outline: 3px solid #ffbe35; outline-offset: 3px; }
   }
   .status-cell::before { display: none; }
   .time-cell, .place-cell, .info-cell, .memo-cell { grid-column: 1 / -1; }
+  .completed-summary-cell { grid-column: 1 / -1; padding: 9px 62px 9px 12px; border-bottom: 0; }
+  .completed-summary-cell::before { display: none; }
+  .completed-summary { min-height: 34px; gap: 10px; }
+  .completed-summary b { font-size: 12px; }
+  .completed-summary strong { font-size: 13px; }
   .time-cell { padding-right: 62px; padding-left: 12px; background: #ece9e1; }
   .time-cell b { color: var(--accent); font-size: 13px; }
   .status-cell .schedule-check { align-items: flex-start; min-width: 44px; min-height: 44px; padding-top: 11px; }

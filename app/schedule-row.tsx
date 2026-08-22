@@ -45,50 +45,61 @@ export default function ScheduleRow({ dayId, index, item }: ScheduleRowProps) {
           <span className="schedule-checkmark" aria-hidden="true">✓</span>
         </label>
       </td>
-      <td className="time-cell" data-label="시간">
-        <span className="row-index">{String(index + 1).padStart(2, "0")}</span>
-        <b>{item.time}</b>
-      </td>
-      <td className="place-cell" data-label="일정">
-        <strong>{item.title}</strong>
-        {item.subtitle && <span>{item.subtitle}</span>}
-        {(item.map || item.route || visibleLinks?.length) && (
-          <div className="item-actions">
-            {item.map && <a className="place-link" href={item.map} target="_blank" rel="noreferrer">장소 정보</a>}
-            {item.route && <a className="route-link" href={item.route} target="_blank" rel="noreferrer">경로 보기</a>}
-            {visibleLinks?.map((link) => (
-              <a className="resource-link" href={link.url} target="_blank" rel="noreferrer" key={link.url}>
-                {link.label}
-              </a>
-            ))}
+      {isDone ? (
+        <td className="completed-summary-cell" colSpan={6} data-label="완료 일정">
+          <div className="completed-summary">
+            <b>{item.time}</b>
+            <strong>{item.title}</strong>
           </div>
-        )}
-        {item.recommendations && (
-          <div className="food-recommendations">
-            <strong>추천</strong>
-            <div>
-              {item.recommendations.map((place) => (
-                <a href={place.map} target="_blank" rel="noreferrer" key={place.name}>{place.name}</a>
-              ))}
-            </div>
-          </div>
-        )}
-      </td>
-      <td className="transport-cell" data-label="이동">{item.transport}</td>
-      <td className="cost-cell" data-label="비용">{item.cost}</td>
-      <td className="info-cell" data-label="비고">
-        {item.note}
-      </td>
-      <td className="memo-cell" data-label="메모">
-        <textarea
-          value={memo}
-          onChange={(event) => updateMemo(event.target.value)}
-          disabled={!ready}
-          placeholder="메모 입력"
-          aria-label={`${item.title} 메모`}
-          rows={3}
-        />
-      </td>
+        </td>
+      ) : (
+        <>
+          <td className="time-cell" data-label="시간">
+            <span className="row-index">{String(index + 1).padStart(2, "0")}</span>
+            <b>{item.time}</b>
+          </td>
+          <td className="place-cell" data-label="일정">
+            <strong>{item.title}</strong>
+            {item.subtitle && <span>{item.subtitle}</span>}
+            {(item.map || item.route || visibleLinks?.length) && (
+              <div className="item-actions">
+                {item.map && <a className="place-link" href={item.map} target="_blank" rel="noreferrer">장소 정보</a>}
+                {item.route && <a className="route-link" href={item.route} target="_blank" rel="noreferrer">경로 보기</a>}
+                {visibleLinks?.map((link) => (
+                  <a className="resource-link" href={link.url} target="_blank" rel="noreferrer" key={link.url}>
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+            )}
+            {item.recommendations && (
+              <div className="food-recommendations">
+                <strong>추천</strong>
+                <div>
+                  {item.recommendations.map((place) => (
+                    <a href={place.map} target="_blank" rel="noreferrer" key={place.name}>{place.name}</a>
+                  ))}
+                </div>
+              </div>
+            )}
+          </td>
+          <td className="transport-cell" data-label="이동">{item.transport}</td>
+          <td className="cost-cell" data-label="비용">{item.cost}</td>
+          <td className="info-cell" data-label="비고">
+            {item.note}
+          </td>
+          <td className="memo-cell" data-label="메모">
+            <textarea
+              value={memo}
+              onChange={(event) => updateMemo(event.target.value)}
+              disabled={!ready}
+              placeholder="메모 입력"
+              aria-label={`${item.title} 메모`}
+              rows={3}
+            />
+          </td>
+        </>
+      )}
     </tr>
   );
 }
