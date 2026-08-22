@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import CollapsibleDay from "./collapsible-day";
+import DayNavigation from "./day-navigation";
 import PrepChecklist from "./prep-checklist";
 import ScheduleRow from "./schedule-row";
 import { FirebaseSyncProvider, FirebaseSyncStatus } from "./firebase-sync-provider";
@@ -64,13 +65,7 @@ export default function Home() {
 
         <PrepChecklist />
 
-        <nav className="day-nav" aria-label="날짜 바로가기">
-          {tripDays.map((day) => (
-            <a key={day.id} href={`#${day.id}`}>
-              <b>{day.day}</b><span>{day.date} · {day.weekday}</span>
-            </a>
-          ))}
-        </nav>
+        <DayNavigation days={tripDays} />
 
         <section className="schedule" aria-label="3박 4일 전체 일정">
           {tripDays.map((day) => (
