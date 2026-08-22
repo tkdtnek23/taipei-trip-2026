@@ -1,0 +1,19 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isTripOwner() {
+      return request.auth != null
+        && request.auth.token.email == 'tkdtnek23@gmail.com'
+        && request.auth.token.email_verified == true;
+    }
+
+    match /trips/taipei-2026 {
+      allow read, write: if isTripOwner();
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
