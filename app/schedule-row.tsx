@@ -49,7 +49,7 @@ export default function ScheduleRow({ dayId, index, item }: ScheduleRowProps) {
         <span className="row-index">{String(index + 1).padStart(2, "0")}</span>
         <b>{item.time}</b>
       </td>
-      <td className="place-cell" data-label="일정 · 장소">
+      <td className="place-cell" data-label="일정">
         <strong>{item.title}</strong>
         {item.subtitle && <span>{item.subtitle}</span>}
         {(item.map || item.route || visibleLinks?.length) && (
@@ -74,8 +74,8 @@ export default function ScheduleRow({ dayId, index, item }: ScheduleRowProps) {
           </div>
         )}
       </td>
-      <td className="transport-cell" data-label="이동 방법">{item.transport}</td>
-      <td className="cost-cell" data-label="예상 비용">{item.cost}</td>
+      <td className="transport-cell" data-label="이동">{item.transport}</td>
+      <td className="cost-cell" data-label="비용">{item.cost}</td>
       <td className="info-cell" data-label="비고">
         {item.note}
       </td>

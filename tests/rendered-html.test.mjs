@@ -34,7 +34,14 @@ test("server-renders the Taipei itinerary", async () => {
   assert.match(html, /여행 준비 체크리스트/);
   assert.match(html, /화산1914와 다다오청 노을/);
   assert.match(html, /고궁박물원·베이터우 족욕·스린 야시장/);
+  assert.match(html, /09:45 B1 GTS 안내문 앞 집결/);
+  assert.doesNotMatch(html, /입장권 28,194원\+투어/);
+  assert.match(html, /<th scope="col">일정<\/th>/);
+  assert.match(html, /data-label="이동"/);
+  assert.match(html, /data-label="비용"/);
   assert.match(html, /전체 경로/);
+  assert.match(html, /aria-expanded="true"/);
+  assert.match(html, /접기 ↑/);
   assert.match(html, /Google 로그인/);
   assert.doesNotMatch(html, /mo\.myrealtrip\.com\/auj8zx/);
   assert.doesNotMatch(html, /codex-preview|Building your site|SkeletonPreview/i);

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import CollapsibleDay from "./collapsible-day";
 import PrepChecklist from "./prep-checklist";
 import ScheduleRow from "./schedule-row";
 import { FirebaseSyncProvider, FirebaseSyncStatus } from "./firebase-sync-provider";
@@ -73,45 +74,39 @@ export default function Home() {
 
         <section className="schedule" aria-label="3박 4일 전체 일정">
           {tripDays.map((day) => (
-            <article className={`day-section accent-${day.color}`} id={day.id} key={day.id}>
-            <header className="day-heading">
-              <div className="day-date"><b>{day.day}</b><strong>{day.date}</strong><span>{day.weekday}</span></div>
-              <div className="day-title"><span>{day.area}</span><h2>{day.theme}</h2></div>
-              <div className="day-heading-actions">
-                <a
-                  className="day-route-link"
-                  href={day.dayRoute}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={`${day.day} 전체 이동 경로를 Google 지도에서 보기`}
-                >
-                  전체 경로 ↗
-                </a>
+            <CollapsibleDay
+              key={day.id}
+              id={day.id}
+              color={day.color}
+              day={day.day}
+              date={day.date}
+              weekday={day.weekday}
+              area={day.area}
+              theme={day.theme}
+              dayRoute={day.dayRoute}
+            >
+              <div className="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th scope="col" aria-label="완료 여부" />
+                      <th scope="col">시간</th>
+                      <th scope="col">일정</th>
+                      <th scope="col">이동</th>
+                      <th scope="col">비용</th>
+                      <th scope="col">비고</th>
+                      <th scope="col">메모</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {buildTimeline(day).map((entry, index) => {
+                      const item = "item" in entry ? entry.item : foodCardToScheduleItem(entry.card);
+                      return <ScheduleRow dayId={day.id} index={index} item={item} key={entry.key} />;
+                    })}
+                  </tbody>
+                </table>
               </div>
-            </header>
-
-            <div className="table-wrap">
-              <table>
-                <thead>
-                  <tr>
-                    <th scope="col" aria-label="완료 여부" />
-                    <th scope="col">시간</th>
-                    <th scope="col">일정 · 장소</th>
-                    <th scope="col">이동 방법</th>
-                    <th scope="col">예상 비용</th>
-                    <th scope="col">비고</th>
-                    <th scope="col">메모</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {buildTimeline(day).map((entry, index) => {
-                    const item = "item" in entry ? entry.item : foodCardToScheduleItem(entry.card);
-                    return <ScheduleRow dayId={day.id} index={index} item={item} key={entry.key} />;
-                  })}
-                </tbody>
-              </table>
-            </div>
-            </article>
+            </CollapsibleDay>
           ))}
         </section>
       </main>
