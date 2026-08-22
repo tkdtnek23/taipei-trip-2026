@@ -666,9 +666,15 @@ a:focus-visible { outline: 3px solid #ffbe35; outline-offset: 3px; }
   }
   .status-cell::before { display: none; }
   .time-cell, .place-cell, .info-cell, .memo-cell { grid-column: 1 / -1; }
-  .completed-summary-cell { grid-column: 1 / -1; padding: 9px 62px 9px 12px; border-bottom: 0; }
+  .completed-summary-cell {
+    grid-column: 1 / -1;
+    display: block;
+    width: 100%;
+    padding: 9px 62px 9px 12px;
+    border-bottom: 0;
+  }
   .completed-summary-cell::before { display: none; }
-  .completed-summary { min-height: 34px; gap: 20px; }
+  .completed-summary { width: 100%; min-height: 34px; gap: 20px; }
   .completed-summary b { font-size: 12px; }
   .completed-summary strong { font-size: 13px; }
   .time-cell { padding-right: 62px; padding-left: 12px; background: #ece9e1; }
