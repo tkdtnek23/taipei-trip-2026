@@ -55,6 +55,7 @@ test("builds a GitHub Pages static entry", async () => {
   ]);
 
   assert.match(html, /<div id="root"><\/div>/);
+  assert.match(html, /width=device-width, initial-scale=1, viewport-fit=cover/);
   assert.match(html, /assets\/index-[^"']+\.js/);
   assert.match(html, /assets\/index-[^"']+\.css/);
   assert.match(workflow, /actions\/upload-pages-artifact@v4/);

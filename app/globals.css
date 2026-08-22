@@ -18,20 +18,27 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 76px;
-  background: var(--paper);
+}
+
+html,
+body {
+  width: 100%;
+  min-width: 100%;
+  background:
+    linear-gradient(rgba(22,32,39,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(22,32,39,.035) 1px, transparent 1px),
+    var(--paper);
+  background-size: 28px 28px;
 }
 
 body {
   margin: 0;
   overflow-x: hidden;
   color: var(--ink);
-  background:
-    linear-gradient(rgba(22,32,39,.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(22,32,39,.035) 1px, transparent 1px),
-    var(--paper);
-  background-size: 28px 28px;
   font-family: var(--font-geist-sans), "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
 }
+
+#root { width: 100%; min-width: 100%; }
 
 a { color: inherit; }
 
@@ -661,7 +668,8 @@ a:focus-visible { outline: 3px solid #ffbe35; outline-offset: 3px; }
 @media (max-width: 520px) {
   html { scroll-padding-top: 76px; }
   .planner-shell {
-    width: 100%;
+    width: 100vw;
+    width: 100dvw;
     max-width: none;
     margin-inline: 0;
     padding-right: 0;
