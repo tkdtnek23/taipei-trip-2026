@@ -661,8 +661,20 @@ a:focus-visible { outline: 3px solid #ffbe35; outline-offset: 3px; }
 @media (max-width: 520px) {
   html { scroll-padding-top: 76px; }
   .planner-shell {
+    width: 100%;
+    max-width: none;
+    margin-inline: 0;
     padding-right: 0;
     padding-left: 0;
+  }
+  .schedule,
+  .day-section,
+  .table-wrap,
+  table,
+  tbody,
+  tr {
+    width: 100%;
+    max-width: 100%;
   }
   .topbar,
   .planner-hero,
@@ -683,7 +695,8 @@ a:focus-visible { outline: 3px solid #ffbe35; outline-offset: 3px; }
   }
   h1 { font-size: clamp(40px, 12.5vw, 58px); letter-spacing: -.065em; }
   .date-range { margin-top: 17px; }
-  .prep-checklist { box-shadow: 4px 4px 0 rgba(22,32,39,.14); }
+  .prep-checklist,
+  tr { box-shadow: 0 4px 0 rgba(22,32,39,.14); }
   .prep-heading { align-items: center; padding: 18px 15px 15px; }
   .prep-heading h2 { font-size: 24px; }
   .prep-actions { gap: 10px; }
