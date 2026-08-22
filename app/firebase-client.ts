@@ -3,6 +3,7 @@ import type { Auth } from "firebase/auth";
 import type { Firestore } from "firebase/firestore";
 
 export const firebaseOwnerEmail = "tkdtnek23@gmail.com";
+export const googleOAuthClientId = "632795375764-8rm5o8fa0kkb1nefcs0qbbg09l6p0n2h.apps.googleusercontent.com";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCxQhRDz-AuEFuzzROyLCZClTv0eIe_My8",

@@ -11,7 +11,43 @@ import {
   type ReactNode,
 } from "react";
 import type { User } from "firebase/auth";
-import { firebaseOwnerEmail, getFirebaseServices, type FirebaseServices } from "./firebase-client";
+import {
+  firebaseOwnerEmail,
+  getFirebaseServices,
+  googleOAuthClientId,
+  type FirebaseServices,
+} from "./firebase-client";
+
+type GoogleCredentialResponse = {
+  credential: string;
+};
+
+type GoogleIdentityServices = {
+  accounts: {
+    id: {
+      initialize: (options: {
+        client_id: string;
+        callback: (response: GoogleCredentialResponse) => void;
+        ux_mode?: "popup";
+        use_fedcm_for_button?: boolean;
+      }) => void;
+      renderButton: (parent: HTMLElement, options: {
+        theme: "outline";
+        size: "medium";
+        text: "signin_with";
+        shape: "rectangular";
+        logo_alignment: "left";
+        locale: "ko";
+      }) => void;
+    };
+  };
+};
+
+declare global {
+  interface Window {
+    google?: GoogleIdentityServices;
+  }
+}
 
 type ScheduleState = Record<string, { done: boolean; memo: string }>;
 
@@ -26,12 +62,13 @@ type SyncStatus = "connecting" | "signed-out" | "syncing" | "saving" | "synced" 
 type TripSyncContextValue = {
   state: TripState;
   ready: boolean;
+  authReady: boolean;
   user: User | null;
   status: SyncStatus;
   error: string;
   updateChecklist: (items: string[]) => void;
   updateScheduleItem: (key: string, patch: Partial<ScheduleState[string]>) => void;
-  signIn: () => Promise<void>;
+  signInWithGoogleIdToken: (idToken: string) => Promise<void>;
   signOut: () => Promise<void>;
 };
 
@@ -125,6 +162,7 @@ function writeLocalState(state: TripState) {
 export function FirebaseSyncProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<TripState>(emptyState);
   const [ready, setReady] = useState(false);
+  const [authReady, setAuthReady] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [status, setStatus] = useState<SyncStatus>("connecting");
   const [error, setError] = useState("");
@@ -177,6 +215,7 @@ export function FirebaseSyncProvider({ children }: { children: ReactNode }) {
       .then((services) => {
         if (!active) return;
         servicesRef.current = services;
+        setAuthReady(true);
         unsubscribeAuth = services.authApi.onAuthStateChanged(services.auth, (nextUser) => {
           unsubscribeDocument?.();
           unsubscribeDocument = undefined;
@@ -245,6 +284,7 @@ export function FirebaseSyncProvider({ children }: { children: ReactNode }) {
       })
       .catch(() => {
         if (!active) return;
+        setAuthReady(false);
         setStatus("error");
         setError("Firebase에 연결하지 못했습니다.");
       });
@@ -276,23 +316,18 @@ export function FirebaseSyncProvider({ children }: { children: ReactNode }) {
     saveToFirebase(next);
   }, [applyState, saveToFirebase]);
 
-  const signIn = useCallback(async () => {
+  const signInWithGoogleIdToken = useCallback(async (idToken: string) => {
     try {
       setStatus("connecting");
       setError("");
       const services = servicesRef.current ?? await getFirebaseServices();
       servicesRef.current = services;
-      const provider = new services.authApi.GoogleAuthProvider();
-      provider.setCustomParameters({ prompt: "select_account" });
-      await services.authApi.signInWithPopup(services.auth, provider);
+      const credential = services.authApi.GoogleAuthProvider.credential(idToken);
+      await services.authApi.signInWithCredential(services.auth, credential);
     } catch (cause) {
       const code = typeof cause === "object" && cause && "code" in cause ? String(cause.code) : "";
-      if (code === "auth/popup-closed-by-user") {
-        setStatus("signed-out");
-        return;
-      }
       setStatus("error");
-      setError("Google 로그인에 실패했습니다.");
+      setError(code ? `Google 로그인에 실패했습니다. (${code})` : "Google 로그인에 실패했습니다.");
     }
   }, []);
 
@@ -304,14 +339,15 @@ export function FirebaseSyncProvider({ children }: { children: ReactNode }) {
   const contextValue = useMemo<TripSyncContextValue>(() => ({
     state,
     ready,
+    authReady,
     user,
     status,
     error,
     updateChecklist,
     updateScheduleItem,
-    signIn,
+    signInWithGoogleIdToken,
     signOut,
-  }), [error, ready, signIn, signOut, state, status, updateChecklist, updateScheduleItem, user]);
+  }), [authReady, error, ready, signInWithGoogleIdToken, signOut, state, status, updateChecklist, updateScheduleItem, user]);
 
   return <TripSyncContext.Provider value={contextValue}>{children}</TripSyncContext.Provider>;
 }
@@ -323,7 +359,66 @@ export function useTripSync() {
 }
 
 export function FirebaseSyncStatus() {
-  const { user, status, error, signIn, signOut } = useTripSync();
+  const { authReady, user, status, error, signInWithGoogleIdToken, signOut } = useTripSync();
+  const googleButtonRef = useRef<HTMLDivElement>(null);
+  const [googleButtonError, setGoogleButtonError] = useState("");
+
+  useEffect(() => {
+    if (!authReady || user || !googleButtonRef.current) return;
+
+    let active = true;
+    const scriptId = "google-identity-services";
+    const renderGoogleButton = () => {
+      if (!active || !window.google || !googleButtonRef.current) return;
+      googleButtonRef.current.replaceChildren();
+      window.google.accounts.id.initialize({
+        client_id: googleOAuthClientId,
+        callback: (response) => {
+          if (response.credential) void signInWithGoogleIdToken(response.credential);
+        },
+        ux_mode: "popup",
+        use_fedcm_for_button: true,
+      });
+      window.google.accounts.id.renderButton(googleButtonRef.current, {
+        theme: "outline",
+        size: "medium",
+        text: "signin_with",
+        shape: "rectangular",
+        logo_alignment: "left",
+        locale: "ko",
+      });
+      setGoogleButtonError("");
+    };
+    const handleLoadError = () => {
+      if (active) setGoogleButtonError("Google 로그인 버튼을 불러오지 못했습니다. 페이지를 새로고침해 주세요.");
+    };
+
+    if (window.google) {
+      renderGoogleButton();
+      return () => {
+        active = false;
+      };
+    }
+
+    let script = document.getElementById(scriptId) as HTMLScriptElement | null;
+    if (!script) {
+      script = document.createElement("script");
+      script.id = scriptId;
+      script.src = "https://accounts.google.com/gsi/client?hl=ko";
+      script.async = true;
+      script.defer = true;
+      document.head.appendChild(script);
+    }
+    script.addEventListener("load", renderGoogleButton);
+    script.addEventListener("error", handleLoadError);
+
+    return () => {
+      active = false;
+      script?.removeEventListener("load", renderGoogleButton);
+      script?.removeEventListener("error", handleLoadError);
+    };
+  }, [authReady, signInWithGoogleIdToken, user]);
+
   const statusLabel = status === "saving"
     ? "저장 중"
     : status === "syncing" || status === "connecting"
@@ -340,7 +435,12 @@ export function FirebaseSyncStatus() {
       {user ? (
         <button type="button" onClick={() => void signOut()}>로그아웃</button>
       ) : (
-        <button type="button" onClick={() => void signIn()}>Google 로그인</button>
+        <div className="google-signin-slot" ref={googleButtonRef} aria-label="Google 로그인">
+          {!authReady && <span>로그인 준비 중</span>}
+        </div>
+      )}
+      {(error || googleButtonError) && (
+        <small className="firebase-sync-error" role="alert">{error || googleButtonError}</small>
       )}
     </div>
   );

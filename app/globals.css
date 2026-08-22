@@ -73,7 +73,10 @@ a { color: inherit; }
 .firebase-sync {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
   gap: 10px;
+  max-width: 360px;
 }
 
 .firebase-sync-state {
@@ -107,6 +110,24 @@ a { color: inherit; }
 }
 
 .firebase-sync button:hover { background: var(--ink); color: #fff; }
+.firebase-sync button:disabled { cursor: wait; opacity: .45; }
+.google-signin-slot {
+  min-width: 116px;
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: var(--muted);
+  font-size: 9px;
+}
+.google-signin-slot > div { max-width: 100%; }
+.firebase-sync-error {
+  flex-basis: 100%;
+  color: var(--coral);
+  font-size: 9px;
+  line-height: 1.35;
+  text-align: right;
+}
 
 .planner-hero {
   padding: 68px 0 52px;
@@ -635,6 +656,7 @@ a:focus-visible { outline: 3px solid #ffbe35; outline-offset: 3px; }
   .firebase-sync-state { font-size: 8px; }
   .firebase-sync-state::before { width: 6px; height: 6px; }
   .firebase-sync button { min-height: 40px; padding-inline: 9px; font-size: 8px; }
+  .firebase-sync-error { max-width: 210px; font-size: 8px; }
   .planner-hero { padding: 38px 0 34px; }
   h1 { font-size: clamp(40px, 12.5vw, 58px); letter-spacing: -.065em; }
   .date-range { margin-top: 17px; }
