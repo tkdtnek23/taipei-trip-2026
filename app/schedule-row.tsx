@@ -46,7 +46,7 @@ export default function ScheduleRow({ dayId, index, item }: ScheduleRowProps) {
         </label>
       </td>
       {isDone ? (
-        <td className="completed-summary-cell" colSpan={6} data-label="완료 일정">
+        <td className="completed-summary-cell" colSpan={6} data-label="완료">
           <div className="completed-summary">
             <b>{item.time}</b>
             <strong>{item.title}</strong>
