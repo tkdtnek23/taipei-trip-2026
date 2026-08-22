@@ -617,6 +617,7 @@ a:focus-visible { outline: 3px solid #ffbe35; outline-offset: 3px; }
   }
   tbody tr:hover { background: var(--surface); }
   td { display: grid; grid-template-columns: 76px 1fr; gap: 8px; padding: 11px 12px; border-right: 0; border-bottom: 1px solid var(--line); font-size: 11px; }
+  tbody tr:last-child td:not(.status-cell):not(.memo-cell) { border-bottom: 1px solid var(--line); }
   td::before { content: attr(data-label); color: var(--muted); font: 750 9px/1.5 var(--font-geist-mono), monospace; }
   .status-cell {
     position: absolute;
