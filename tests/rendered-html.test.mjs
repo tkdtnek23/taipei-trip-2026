@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { access, readFile } from "node:fs/promises";
 import test from "node:test";
 
 async function render() {
@@ -56,10 +56,12 @@ test("builds a GitHub Pages static entry", async () => {
   ]);
 
   assert.match(html, /<div id="root"><\/div>/);
+  assert.match(html, /rel="apple-touch-icon" sizes="180x180" href="\.\/apple-touch-icon\.png"/);
   assert.match(html, /width=device-width, initial-scale=1, viewport-fit=cover/);
   assert.match(html, /assets\/index-[^"']+\.js/);
   assert.match(html, /assets\/index-[^"']+\.css/);
   assert.match(workflow, /actions\/upload-pages-artifact@v4/);
   assert.match(workflow, /actions\/deploy-pages@v4/);
   assert.match(packageJson, /"build:pages"/);
+  await access(new URL("../pages-dist/apple-touch-icon.png", import.meta.url));
 });
