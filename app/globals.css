@@ -108,6 +108,7 @@ a { color: inherit; }
 
 .firebase-sync-state.is-synced::before { background: var(--green); }
 .firebase-sync-state.is-error::before { background: var(--coral); }
+.firebase-sync-state.is-offline::before { background: var(--gold); }
 
 .firebase-sync button {
   min-height: 36px;

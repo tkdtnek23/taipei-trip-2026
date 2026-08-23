@@ -248,6 +248,7 @@ export function FirebaseSyncProvider({ children }: { children: ReactNode }) {
             document,
             (snapshot) => {
               if (!active) return;
+              setError("");
               if (snapshot.exists()) {
                 const data = snapshot.data();
                 const remoteState = normalizeTripState(data);
@@ -362,6 +363,19 @@ export function FirebaseSyncStatus() {
   const { authReady, user, status, error, signInWithGoogleIdToken, signOut } = useTripSync();
   const googleButtonRef = useRef<HTMLDivElement>(null);
   const [googleButtonError, setGoogleButtonError] = useState("");
+  const [online, setOnline] = useState(true);
+
+  useEffect(() => {
+    const updateConnection = () => setOnline(navigator.onLine);
+    updateConnection();
+    window.addEventListener("online", updateConnection);
+    window.addEventListener("offline", updateConnection);
+
+    return () => {
+      window.removeEventListener("online", updateConnection);
+      window.removeEventListener("offline", updateConnection);
+    };
+  }, []);
 
   useEffect(() => {
     if (!authReady || user || !googleButtonRef.current) return;
@@ -419,7 +433,9 @@ export function FirebaseSyncStatus() {
     };
   }, [authReady, signInWithGoogleIdToken, user]);
 
-  const statusLabel = status === "saving"
+  const statusLabel = !online
+    ? "오프라인 저장"
+    : status === "saving"
     ? "저장 중"
     : status === "syncing" || status === "connecting"
       ? "연결 중"
@@ -427,11 +443,15 @@ export function FirebaseSyncStatus() {
         ? "Firebase 저장됨"
         : status === "error"
           ? "연결 확인"
-          : "기기 임시 저장";
+          : "기기 저장됨";
 
   return (
-    <div className="firebase-sync" aria-live="polite" title={error || undefined}>
-      <span className={`firebase-sync-state is-${status}`}>{statusLabel}</span>
+    <div
+      className="firebase-sync"
+      aria-live="polite"
+      title={!online ? "기기에 저장하고 연결되면 Firebase와 동기화합니다." : error || undefined}
+    >
+      <span className={`firebase-sync-state ${!online ? "is-offline" : `is-${status}`}`}>{statusLabel}</span>
       {user ? (
         <button type="button" onClick={() => void signOut()}>로그아웃</button>
       ) : (
@@ -439,7 +459,7 @@ export function FirebaseSyncStatus() {
           {!authReady && <span>로그인 준비 중</span>}
         </div>
       )}
-      {(error || googleButtonError) && (
+      {online && (error || googleButtonError) && (
         <small className="firebase-sync-error" role="alert">{error || googleButtonError}</small>
       )}
     </div>

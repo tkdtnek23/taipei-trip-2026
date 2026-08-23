@@ -57,10 +57,11 @@ test("server-renders the Taipei itinerary", async () => {
 });
 
 test("builds a GitHub Pages static entry", async () => {
-  const [html, workflow, packageJson] = await Promise.all([
+  const [html, workflow, packageJson, serviceWorker] = await Promise.all([
     readFile(new URL("../pages-dist/index.html", import.meta.url), "utf8"),
     readFile(new URL("../.github/workflows/deploy-pages.yml", import.meta.url), "utf8"),
     readFile(new URL("../package.json", import.meta.url), "utf8"),
+    readFile(new URL("../pages-dist/sw.js", import.meta.url), "utf8"),
   ]);
 
   assert.match(html, /<div id="root"><\/div>/);
@@ -71,5 +72,9 @@ test("builds a GitHub Pages static entry", async () => {
   assert.match(workflow, /actions\/upload-pages-artifact@v4/);
   assert.match(workflow, /actions\/deploy-pages@v4/);
   assert.match(packageJson, /"build:pages"/);
+  assert.match(packageJson, /generate-service-worker\.mjs/);
+  assert.match(serviceWorker, /taipei-trip-cache-/);
+  assert.match(serviceWorker, /\.\/assets\/index-[^"']+\.js/);
+  assert.match(serviceWorker, /request\.mode === "navigate"/);
   await access(new URL("../pages-dist/apple-touch-icon.png", import.meta.url));
 });

@@ -38,11 +38,22 @@ export function getFirebaseServices() {
       const app = appApi.getApps().length ? appApi.getApp() : appApi.initializeApp(firebaseConfig);
       const auth = authApi.getAuth(app);
       auth.useDeviceLanguage();
+      let db: Firestore;
+
+      try {
+        db = firestoreApi.initializeFirestore(app, {
+          localCache: firestoreApi.persistentLocalCache({
+            tabManager: firestoreApi.persistentMultipleTabManager(),
+          }),
+        });
+      } catch {
+        db = firestoreApi.getFirestore(app);
+      }
 
       return {
         app,
         auth,
-        db: firestoreApi.getFirestore(app),
+        db,
         authApi,
         firestoreApi,
       };
