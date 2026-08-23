@@ -37,6 +37,9 @@ test("server-renders the Taipei itinerary", async () => {
   assert.match(html, /09:45 B1 GTS 안내문 앞 집결/);
   assert.doesNotMatch(html, /입장권 28,194원\+투어/);
   assert.match(html, /<th scope="col">일정<\/th>/);
+  assert.doesNotMatch(html, /<th scope="col">비고<\/th>/);
+  assert.doesNotMatch(html, /data-label="비고"/);
+  assert.match(html, /class="schedule-note">09:45 B1 GTS 안내문 앞 집결/);
   assert.match(html, /data-label="이동"/);
   assert.match(html, /data-label="비용"/);
   assert.match(html, /전체 경로/);

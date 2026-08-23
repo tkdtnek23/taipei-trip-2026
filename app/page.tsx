@@ -89,7 +89,6 @@ export default function Home() {
                       <th scope="col">일정</th>
                       <th scope="col">이동</th>
                       <th scope="col">비용</th>
-                      <th scope="col">비고</th>
                       <th scope="col">메모</th>
                     </tr>
                   </thead>

@@ -459,11 +459,10 @@ th {
 
 th:nth-child(1) { width: 4%; }
 th:nth-child(2) { width: 8%; }
-th:nth-child(3) { width: 22%; }
-th:nth-child(4) { width: 14%; }
+th:nth-child(3) { width: 38%; }
+th:nth-child(4) { width: 16%; }
 th:nth-child(5) { width: 9%; }
 th:nth-child(6) { width: 25%; }
-th:nth-child(7) { width: 18%; }
 
 td { padding: 16px 13px; border-bottom: 1px solid var(--line); font-size: 11px; line-height: 1.55; overflow-wrap: anywhere; word-break: keep-all; }
 tr:last-child td { border-bottom: 0; }
@@ -538,9 +537,17 @@ tr[data-completed="true"] td { color: color-mix(in srgb, var(--muted) 78%, var(-
   text-decoration-thickness: 1.5px;
   word-break: break-word;
 }
-.place-cell > strong, .place-cell > span, .item-actions { display: block; }
+.place-cell > strong, .place-cell > span, .place-cell > .schedule-note, .item-actions { display: block; }
 .place-cell > strong { margin-bottom: 4px; font-size: 13px; line-height: 1.35; }
 .place-cell > span { color: var(--muted); font-size: 10px; }
+.schedule-note {
+  margin: 8px 0 0;
+  padding-left: 8px;
+  border-left: 2px solid color-mix(in srgb, var(--accent) 55%, var(--line));
+  color: #536068;
+  font-size: 10px;
+  line-height: 1.5;
+}
 .item-actions {
   display: flex;
   align-items: center;
@@ -566,7 +573,7 @@ tr[data-completed="true"] td { color: color-mix(in srgb, var(--muted) 78%, var(-
   background: color-mix(in srgb, var(--accent) 7%, var(--surface));
 }
 .item-actions > a:hover { background: var(--accent); color: #fff; }
-.transport-cell, .cost-cell, .info-cell { color: #536068; }
+.transport-cell, .cost-cell { color: #536068; }
 .memo-cell { padding: 10px; }
 .memo-cell textarea {
   display: block;
@@ -665,7 +672,7 @@ a:focus-visible { outline: 3px solid #ffbe35; outline-offset: 3px; }
     background: transparent;
   }
   .status-cell::before { display: none; }
-  .time-cell, .place-cell, .info-cell, .memo-cell { grid-column: 1 / -1; }
+  .time-cell, .place-cell, .memo-cell { grid-column: 1 / -1; }
   .completed-summary-cell {
     grid-column: 1 / -1;
     display: block;
@@ -682,7 +689,11 @@ a:focus-visible { outline: 3px solid #ffbe35; outline-offset: 3px; }
   .status-cell .schedule-check { align-items: flex-start; min-width: 44px; min-height: 44px; padding-top: 11px; }
   .schedule-checkmark { width: 24px; height: 24px; font-size: 15px; }
   .place-cell { grid-template-columns: 76px 1fr; }
-  .place-cell > strong, .place-cell > span, .place-cell > .item-actions, .place-cell > .food-recommendations { grid-column: 2; }
+  .place-cell > strong,
+  .place-cell > span,
+  .place-cell > .schedule-note,
+  .place-cell > .item-actions,
+  .place-cell > .food-recommendations { grid-column: 2; }
   .place-cell > strong { font-size: 14px; }
   .item-actions {
     gap: 6px;
@@ -794,7 +805,6 @@ a:focus-visible { outline: 3px solid #ffbe35; outline-offset: 3px; }
   .place-cell,
   .transport-cell,
   .cost-cell,
-  .info-cell,
   .memo-cell {
     grid-column: 1 / -1;
   }
@@ -807,7 +817,6 @@ a:focus-visible { outline: 3px solid #ffbe35; outline-offset: 3px; }
   }
   .place-cell { grid-template-columns: 68px minmax(0, 1fr); }
   .cost-cell { border-left: 0; }
-  .info-cell { border-bottom: 1px solid var(--line); }
   .memo-cell { border-bottom: 0; }
   td::before { font-size: 9px; }
 }

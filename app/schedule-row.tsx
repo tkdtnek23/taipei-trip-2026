@@ -46,7 +46,7 @@ export default function ScheduleRow({ dayId, index, item }: ScheduleRowProps) {
         </label>
       </td>
       {isDone ? (
-        <td className="completed-summary-cell" colSpan={6} data-label="완료">
+        <td className="completed-summary-cell" colSpan={5} data-label="완료">
           <div className="completed-summary">
             <b>{item.time}</b>
             <strong>{item.title}</strong>
@@ -61,6 +61,7 @@ export default function ScheduleRow({ dayId, index, item }: ScheduleRowProps) {
           <td className="place-cell" data-label="일정">
             <strong>{item.title}</strong>
             {item.subtitle && <span>{item.subtitle}</span>}
+            {item.note && <p className="schedule-note">{item.note}</p>}
             {(item.map || item.route || visibleLinks?.length) && (
               <div className="item-actions">
                 {item.map && <a className="place-link" href={item.map} target="_blank" rel="noreferrer">장소 정보</a>}
@@ -85,9 +86,6 @@ export default function ScheduleRow({ dayId, index, item }: ScheduleRowProps) {
           </td>
           <td className="transport-cell" data-label="이동">{item.transport}</td>
           <td className="cost-cell" data-label="비용">{item.cost}</td>
-          <td className="info-cell" data-label="비고">
-            {item.note}
-          </td>
           <td className="memo-cell" data-label="메모">
             <textarea
               value={memo}
