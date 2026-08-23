@@ -25,6 +25,10 @@ function getScheduleDescriptions(item: ScheduleItem) {
     });
 }
 
+function opensGoogleMaps(url: string) {
+  return url.startsWith("https://www.google.com/maps/");
+}
+
 export default function ScheduleRow({ dayId, index, item }: ScheduleRowProps) {
   const { state, ready, updateScheduleItem } = useTripSync();
   const inputId = useId();
@@ -83,8 +87,17 @@ export default function ScheduleRow({ dayId, index, item }: ScheduleRowProps) {
             )}
             {(item.map || item.route || visibleLinks?.length) && (
               <div className="item-actions">
-                {item.map && <a className="place-link" href={item.map} target="_blank" rel="noreferrer">장소 정보</a>}
-                {item.route && <a className="route-link" href={item.route} target="_blank" rel="noreferrer">경로 보기</a>}
+                {item.map && (
+                  <a
+                    className="place-link"
+                    href={item.map}
+                    target={opensGoogleMaps(item.map) ? undefined : "_blank"}
+                    rel={opensGoogleMaps(item.map) ? undefined : "noreferrer"}
+                  >
+                    장소 정보
+                  </a>
+                )}
+                {item.route && <a className="route-link" href={item.route}>경로 보기</a>}
                 {visibleLinks?.map((link) => (
                   <a className="resource-link" href={link.url} target="_blank" rel="noreferrer" key={link.url}>
                     {link.label}
@@ -97,7 +110,7 @@ export default function ScheduleRow({ dayId, index, item }: ScheduleRowProps) {
                 <strong>추천</strong>
                 <div>
                   {item.recommendations.map((place) => (
-                    <a href={place.map} target="_blank" rel="noreferrer" key={place.name}>{place.name}</a>
+                    <a href={place.map} key={place.name}>{place.name}</a>
                   ))}
                 </div>
               </div>

@@ -38,8 +38,6 @@ export default function CollapsibleDay({
           <a
             className="day-route-link"
             href={dayRoute}
-            target="_blank"
-            rel="noreferrer"
             aria-label={`${day} 전체 이동 경로를 Google 지도에서 보기`}
           >
             전체 경로 ↗

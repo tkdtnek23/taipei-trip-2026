@@ -45,6 +45,9 @@ test("server-renders the Taipei itinerary", async () => {
   assert.match(html, /data-label="이동"/);
   assert.match(html, /data-label="비용"/);
   assert.match(html, /전체 경로/);
+  assert.doesNotMatch(html, /maps\.app\.goo\.gl/);
+  assert.doesNotMatch(html, /class="day-route-link"[^>]+target="_blank"/);
+  assert.doesNotMatch(html, /class="route-link"[^>]+target="_blank"/);
   assert.match(html, /aria-current="date"/);
   assert.match(html, /aria-expanded="true"/);
   assert.match(html, /접기 ↑/);

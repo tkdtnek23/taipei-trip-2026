@@ -66,7 +66,6 @@ export const tripDays: TripDay[] = [
       "Taoyuan International Airport Taiwan",
       "CityInn Hotel Taipei Station Branch II",
       "Huashan 1914 Creative Park",
-      "CityInn Hotel Taipei Station Branch II",
       "Dadaocheng Wharf Container Market",
       "CityInn Hotel Taipei Station Branch II",
     ]),
@@ -76,8 +75,8 @@ export const tripDays: TripDay[] = [
         afterItem: "호텔 도착 · 짐 보관",
         slots: [{ time: "13:00", title: "점심", detail: "화산1914 인근 · 입국이 늦으면 간단히" }],
         recommendations: [
-          { name: "린양강 해산물(臨洋港)", map: "https://maps.app.goo.gl/k5c3zBeoBD3CxJ5Y6" },
-          { name: "금품차루(金品茶樓)", map: "https://maps.app.goo.gl/ZS3JsoUAXfprmrtf9" },
+          { name: "린양강 해산물(臨洋港)", map: mapSearch("臨洋港 海鮮 台北") },
+          { name: "금품차루(金品茶樓)", map: mapSearch("金品茶樓 台北") },
         ],
       },
       {
@@ -85,7 +84,7 @@ export const tripDays: TripDay[] = [
         afterItem: "화산1914 문화창의산업원구",
         slots: [{ time: "16:00", title: "카페", detail: "다다오청 이동 전 · 시간에 따라 생략" }],
         recommendations: [
-          { name: "CHLIV 화산점", map: "https://maps.app.goo.gl/ExgX87av66xRFuJq5" },
+          { name: "CHLIV 화산점", map: mapSearch("CHLIV Huashan Taipei") },
         ],
       },
       {
@@ -93,7 +92,7 @@ export const tripDays: TripDay[] = [
         afterItem: "다다오청 마터우 광장",
         slots: [{ time: "19:00", title: "저녁", detail: "다다오청 마터우 광장 컨테이너 마켓에서" }],
         recommendations: [
-          { name: "다다오청 루러우판(大稻埕魯肉飯)", map: "https://maps.app.goo.gl/UsXuTrtyQPmqs2TK6" },
+          { name: "다다오청 루러우판(大稻埕魯肉飯)", map: mapSearch("大稻埕魯肉飯 台北") },
         ],
       },
     ],
@@ -156,7 +155,7 @@ export const tripDays: TripDay[] = [
         booking: "완료",
         cost: "무료 보관",
         note: "체크인 15:00 · 도착 즉시 무료 짐 보관 · CityInn Hotel Taipei Station Branch II, No. 81 Chang'an W. Rd. / 新驛旅店台北車站二館, 台北市大同區長安西路81號.",
-        map: "https://www.google.com/maps/place//data=!4m2!3m1!1s0x3442a96cfc472f45:0x4b3e9811d8dc0005",
+        map: mapSearch("CityInn Hotel Taipei Station Branch II"),
         route: mapDirections("Airport MRT Taipei Main Station A1", "CityInn Hotel Taipei Station Branch II", "walking"),
       },
       {
@@ -178,7 +177,7 @@ export const tripDays: TripDay[] = [
         booking: "완료",
         cost: "결제 완료",
         note: "여권·전자 예약확정서 제시 후 짐 정리.",
-        map: "https://www.google.com/maps/place//data=!4m2!3m1!1s0x3442a96cfc472f45:0x4b3e9811d8dc0005",
+        map: mapSearch("CityInn Hotel Taipei Station Branch II"),
         route: mapDirections("Huashan 1914 Creative Park", "CityInn Hotel Taipei Station Branch II", "transit"),
       },
       {
@@ -200,7 +199,7 @@ export const tripDays: TripDay[] = [
         booking: "불필요",
         cost: "—",
         note: "다음 날 08:10 출발 준비.",
-        map: "https://www.google.com/maps/place//data=!4m2!3m1!1s0x3442a96cfc472f45:0x4b3e9811d8dc0005",
+        map: mapSearch("CityInn Hotel Taipei Station Branch II"),
         route: mapDirections("Dadaocheng Wharf Container Market", "CityInn Hotel Taipei Station Branch II", "walking"),
       },
     ],
@@ -217,8 +216,6 @@ export const tripDays: TripDay[] = [
       "CityInn Hotel Taipei Station Branch II",
       "National Palace Museum Taipei",
       "Beitou Hot Spring Museum",
-      "Thermal Valley Taipei",
-      "Fuxing Park Hot Spring Foot Spa Taipei",
       "Shilin Night Market",
       "CityInn Hotel Taipei Station Branch II",
     ]),
@@ -232,7 +229,7 @@ export const tripDays: TripDay[] = [
         afterItem: "고궁박물원 → 신베이터우",
         slots: [{ time: "13:00", title: "점심", detail: "신베이터우 온천공원 인근 · 가벼운 메뉴" }],
         recommendations: [
-          { name: "문문푸드 베이터우점(雙月食品社 北投店)", map: "https://maps.app.goo.gl/bQJkWM1uH9XqWgcAA" },
+          { name: "문문푸드 베이터우점(雙月食品社 北投店)", map: mapSearch("雙月食品社 北投店") },
         ],
       },
       {
@@ -240,7 +237,7 @@ export const tripDays: TripDay[] = [
         afterItem: "스린 야시장",
         slots: [{ time: "18:30", title: "저녁", detail: "스린 야시장 인근에서 선택" }],
         recommendations: [
-          { name: "치요우 철판구이 스린점(喫尤平價鐵板燒 士林店)", map: "https://maps.app.goo.gl/jE29EJvZk6qgViug7" },
+          { name: "치요우 철판구이 스린점(喫尤平價鐵板燒 士林店)", map: mapSearch("喫尤平價鐵板燒 士林店") },
         ],
       },
     ],
@@ -301,7 +298,7 @@ export const tripDays: TripDay[] = [
         booking: "불필요",
         cost: "무료",
         note: "화~일 08:00~18:00 · 작은 수건 준비 · 약 30분 족욕.",
-        map: "https://www.google.com/maps/search/?api=1&query=Fuxing+Park+Hot+Spring+Foot+Spa+Taipei",
+        map: mapSearch("Fuxing Park Hot Spring Foot Spa Taipei"),
         route: mapDirections("Thermal Valley Taipei", "Fuxing Park Hot Spring Foot Spa Taipei", "walking"),
       },
       {
@@ -348,7 +345,6 @@ export const tripDays: TripDay[] = [
       "CityInn Hotel Taipei Station Branch II",
       "Yongkang Street Taipei",
       "Songshan Cultural and Creative Park",
-      "Xiangshan Station Taipei",
       "Xiangshan Six Boulders Taipei",
       "CityInn Hotel Taipei Station Branch II",
     ]),
@@ -362,8 +358,8 @@ export const tripDays: TripDay[] = [
         afterItem: "동먼 · 융캉제 산책",
         slots: [{ time: "12:30", title: "점심", detail: "동먼·융캉제에서 새로운 식당 선택" }],
         recommendations: [
-          { name: "하오공다오 진지위안(好公道金雞園)", map: "https://maps.app.goo.gl/g7mPRynebmzR9dmv7" },
-          { name: "딘타이펑 신생점(鼎泰豐)", map: "https://maps.app.goo.gl/rexQe3o8Dxn6GV4YA" },
+          { name: "하오공다오 진지위안(好公道金雞園)", map: mapSearch("好公道金雞園 台北") },
+          { name: "딘타이펑 신생점(鼎泰豐)", map: mapSearch("鼎泰豐 新生店 台北") },
         ],
       },
       {
@@ -371,7 +367,7 @@ export const tripDays: TripDay[] = [
         afterItem: "동먼 · 융캉제 산책",
         slots: [{ time: "14:10", title: "카페", detail: "송산 이동 전 · 대기 길면 생략" }],
         recommendations: [
-          { name: "라뜰리에 로터스(L’Atelier Lotus)", map: "https://maps.app.goo.gl/LCqj8BoYBYqJdbDZ8" },
+          { name: "라뜰리에 로터스(L’Atelier Lotus)", map: mapSearch("L’Atelier Lotus Taipei") },
         ],
       },
       {
@@ -379,7 +375,7 @@ export const tripDays: TripDay[] = [
         afterItem: "샹산에서 101 야경",
         slots: [{ time: "20:00", title: "저녁", detail: "샹산 하산 후 식사 후보 선택" }],
         recommendations: [
-          { name: "핀두 꼬치구이(品都串燒)", map: "https://maps.app.goo.gl/QZQuZLeTpA1QvDzN9" },
+          { name: "핀두 꼬치구이(品都串燒)", map: mapSearch("品都串燒 台北") },
         ],
       },
     ],
