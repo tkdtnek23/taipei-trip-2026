@@ -539,13 +539,13 @@ tr[data-completed="true"] td { color: color-mix(in srgb, var(--muted) 78%, var(-
 }
 .place-cell > strong, .place-cell > span, .place-cell > .schedule-note, .item-actions { display: block; }
 .place-cell > strong { margin-bottom: 4px; font-size: 13px; line-height: 1.35; }
-.place-cell > span { color: var(--muted); font-size: 10px; }
+.place-cell > span { color: var(--muted); font-size: inherit; }
 .schedule-note {
   margin: 8px 0 0;
   padding-left: 8px;
   border-left: 2px solid color-mix(in srgb, var(--accent) 55%, var(--line));
   color: #536068;
-  font-size: 10px;
+  font-size: inherit;
   line-height: 1.5;
 }
 .item-actions {
