@@ -10,6 +10,21 @@ type ScheduleRowProps = {
   item: ScheduleItem;
 };
 
+function getScheduleDescriptions(item: ScheduleItem) {
+  const seen = new Set<string>();
+
+  return [item.subtitle, item.note]
+    .flatMap((description) => description?.split(/\s+·\s+/u) ?? [])
+    .map((description) => description.trim())
+    .filter((description) => {
+      if (!description) return false;
+      const normalized = description.replace(/[\s.]/g, "");
+      if (seen.has(normalized)) return false;
+      seen.add(normalized);
+      return true;
+    });
+}
+
 export default function ScheduleRow({ dayId, index, item }: ScheduleRowProps) {
   const { state, ready, updateScheduleItem } = useTripSync();
   const inputId = useId();
@@ -17,6 +32,7 @@ export default function ScheduleRow({ dayId, index, item }: ScheduleRowProps) {
   const itemState = state.schedule[itemKey] ?? { done: false, memo: "" };
   const isDone = itemState.done;
   const memo = itemState.memo;
+  const descriptions = getScheduleDescriptions(item);
   const visibleLinks = item.links?.flatMap((link) => {
     const url = link.url ?? (link.privateKey ? state.privateLinks[link.privateKey] : undefined);
     return url ? [{ ...link, url }] : [];
@@ -60,8 +76,11 @@ export default function ScheduleRow({ dayId, index, item }: ScheduleRowProps) {
           </td>
           <td className="place-cell" data-label="일정">
             <strong>{item.title}</strong>
-            {item.subtitle && <span>{item.subtitle}</span>}
-            {item.note && <p className="schedule-note">{item.note}</p>}
+            {descriptions.length > 0 && (
+              <ul className="schedule-descriptions">
+                {descriptions.map((description) => <li key={description}>{description}</li>)}
+              </ul>
+            )}
             {(item.map || item.route || visibleLinks?.length) && (
               <div className="item-actions">
                 {item.map && <a className="place-link" href={item.map} target="_blank" rel="noreferrer">장소 정보</a>}

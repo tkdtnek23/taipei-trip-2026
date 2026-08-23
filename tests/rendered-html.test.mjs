@@ -34,12 +34,14 @@ test("server-renders the Taipei itinerary", async () => {
   assert.match(html, /여행 준비 체크리스트/);
   assert.match(html, /화산1914와 다다오청 노을/);
   assert.match(html, /고궁박물원·베이터우 족욕·스린 야시장/);
-  assert.match(html, /09:45 B1 GTS 안내문 앞 집결/);
+  assert.match(html, /09:45 B1 손문 동상 반대편 GTS 안내문 앞 집결/);
   assert.doesNotMatch(html, /입장권 28,194원\+투어/);
   assert.match(html, /<th scope="col">일정<\/th>/);
   assert.doesNotMatch(html, /<th scope="col">비고<\/th>/);
   assert.doesNotMatch(html, /data-label="비고"/);
-  assert.match(html, /class="schedule-note">09:45 B1 GTS 안내문 앞 집결/);
+  assert.match(html, /class="schedule-descriptions"/);
+  assert.match(html, /<li>09:45 B1 손문 동상 반대편 GTS 안내문 앞 집결<\/li>/);
+  assert.doesNotMatch(html, /class="schedule-note"/);
   assert.match(html, /data-label="이동"/);
   assert.match(html, /data-label="비용"/);
   assert.match(html, /전체 경로/);

@@ -111,7 +111,7 @@ export const tripDays: TripDay[] = [
       {
         time: "08:35~10:25",
         title: "아시아나항공 · 인천 → 타이베이",
-        subtitle: "ICN 08:35 출발 · TPE 10:25 도착",
+        subtitle: "ICN 출발 → TPE 도착",
         transport: "직항 · 2시간 50분",
         booking: "완료",
         cost: "왕복 2인 709,000원",
@@ -120,11 +120,11 @@ export const tripDays: TripDay[] = [
       {
         time: "도착 후",
         title: "일반 입국심사 · 수하물",
-        subtitle: "TWAC 확인 → 일반 입국심사 → 수하물 → 세관",
+        subtitle: "일반 입국심사 → 수하물 → 세관",
         transport: "도보 · 일반 심사대",
         booking: "불필요",
         cost: "무료",
-        note: "TWAC 제출 확인 · 여권 지참 후 일반 입국심사.",
+        note: "TWAC 제출 확인서 · 여권 준비.",
         map: "https://twac.immigration.gov.tw/",
       },
       {
@@ -134,7 +134,7 @@ export const tripDays: TripDay[] = [
         transport: "판매·충전기 또는 안내창구",
         booking: "불필요",
         cost: "2인 NT$1,800",
-        note: "1인 1장 구매·NT$800 충전 · 판매·충전기는 현금 사용.",
+        note: "NT$800 충전 · 판매·충전기는 현금 사용.",
         map: "https://www.tymetro.com.tw/tymetro-new/en/_pages/travel-guide/usage.php",
       },
       {
@@ -151,11 +151,11 @@ export const tripDays: TripDay[] = [
       {
         time: "12:00~13:00",
         title: "호텔 도착 · 짐 보관",
-        subtitle: "시티인 호텔 타이베이역 2호점 · 체크인 15:00",
+        subtitle: "시티인 호텔 타이베이역 2호점",
         transport: "A1에서 도보 약 6분 · 400m",
         booking: "완료",
         cost: "무료 보관",
-        note: "15:00 전 무료 짐 보관 · CityInn Hotel Taipei Station Branch II, No. 81 Chang'an W. Rd. / 新驛旅店台北車站二館, 台北市大同區長安西路81號.",
+        note: "체크인 15:00 · 도착 즉시 무료 짐 보관 · CityInn Hotel Taipei Station Branch II, No. 81 Chang'an W. Rd. / 新驛旅店台北車站二館, 台北市大同區長安西路81號.",
         map: "https://www.google.com/maps/place//data=!4m2!3m1!1s0x3442a96cfc472f45:0x4b3e9811d8dc0005",
         route: mapDirections("Airport MRT Taipei Main Station A1", "CityInn Hotel Taipei Station Branch II", "walking"),
       },
@@ -248,11 +248,11 @@ export const tripDays: TripDay[] = [
       {
         time: "09:45",
         title: "국립고궁박물원 한국어 도슨트 투어",
-        subtitle: "B1 손문 동상 반대편 GTS 안내문 앞 · 10:00~12:00",
+        subtitle: "10:00~12:00 · 한국어 해설",
         transport: "MRT+버스 약 55~65분 · 택시 약 25~35분",
         booking: "완료",
         cost: "2인 총 60,304원 · 수신기 NT$100 별도",
-        note: "09:45 B1 GTS 안내문 앞 집결 · 10:00 정시 출발 · 수신기용 현금·얇은 겉옷 준비.",
+        note: "09:45 B1 손문 동상 반대편 GTS 안내문 앞 집결 · 10:00 정시 출발 · 수신기용 현금·얇은 겉옷 준비.",
         map: "https://www.npm.gov.tw/Articles.aspx?l=2&sno=02007001",
         route: mapDirections("CityInn Hotel Taipei Station Branch II", "National Palace Museum Taipei", "transit"),
         links: [
@@ -296,7 +296,7 @@ export const tripDays: TripDay[] = [
       {
         time: "15:25",
         title: "푸싱공원 온천 족욕",
-        subtitle: "復興公園溫泉泡腳池 · 무료 족욕",
+        subtitle: "復興公園溫泉泡腳池",
         transport: "지열곡에서 도보 약 20분",
         booking: "불필요",
         cost: "무료",
@@ -331,7 +331,7 @@ export const tripDays: TripDay[] = [
         transport: "MRT 홍선+도보 약 25분",
         booking: "불필요",
         cost: "이지카드",
-        note: "20시대 호텔 복귀 예정.",
+        note: "다음 날 일정 확인 후 휴식.",
         route: mapDirections("Shilin Night Market", "CityInn Hotel Taipei Station Branch II", "transit"),
       },
     ],
@@ -435,7 +435,7 @@ export const tripDays: TripDay[] = [
         transport: "MRT 또는 택시 약 25~40분",
         booking: "불필요",
         cost: "이지카드 또는 택시비",
-        note: "저녁 식사 후 호텔 이동.",
+        note: "다음 날 체크아웃 준비.",
         links: [
           { label: "핀두→호텔", url: mapDirections("25.041614,121.55532", "CityInn Hotel Taipei Station Branch II", "transit") },
         ],
@@ -509,7 +509,7 @@ export const tripDays: TripDay[] = [
       {
         time: "16:55~20:25",
         title: "아시아나항공 · 타이베이 → 인천",
-        subtitle: "TPE 16:55 출발 · ICN 20:25 도착",
+        subtitle: "TPE 출발 → ICN 도착",
         transport: "직항 · 2시간 30분",
         booking: "완료",
         cost: "왕복 결제에 포함",

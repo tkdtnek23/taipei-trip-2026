@@ -537,17 +537,23 @@ tr[data-completed="true"] td { color: color-mix(in srgb, var(--muted) 78%, var(-
   text-decoration-thickness: 1.5px;
   word-break: break-word;
 }
-.place-cell > strong, .place-cell > span, .place-cell > .schedule-note, .item-actions { display: block; }
+.place-cell > strong, .place-cell > .schedule-descriptions, .item-actions { display: block; }
 .place-cell > strong { margin-bottom: 4px; font-size: 13px; line-height: 1.35; }
-.place-cell > span { color: var(--muted); font-size: inherit; }
-.schedule-note {
+.schedule-descriptions {
+  list-style: none;
   margin: 8px 0 0;
-  padding-left: 8px;
-  border-left: 2px solid color-mix(in srgb, var(--accent) 55%, var(--line));
+  padding: 0;
   color: #536068;
   font-size: inherit;
   line-height: 1.5;
 }
+.schedule-descriptions li {
+  display: grid;
+  grid-template-columns: 9px minmax(0, 1fr);
+  gap: 2px;
+}
+.schedule-descriptions li::before { color: var(--accent); content: "-"; }
+.schedule-descriptions li + li { margin-top: 3px; }
 .item-actions {
   display: flex;
   align-items: center;
@@ -690,8 +696,7 @@ a:focus-visible { outline: 3px solid #ffbe35; outline-offset: 3px; }
   .schedule-checkmark { width: 24px; height: 24px; font-size: 15px; }
   .place-cell { grid-template-columns: 76px 1fr; }
   .place-cell > strong,
-  .place-cell > span,
-  .place-cell > .schedule-note,
+  .place-cell > .schedule-descriptions,
   .place-cell > .item-actions,
   .place-cell > .food-recommendations { grid-column: 2; }
   .place-cell > strong { font-size: 14px; }
