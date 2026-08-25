@@ -13,12 +13,19 @@ export default function DayNavigation({ days }: { days: DayLink[] }) {
   const [activeDay, setActiveDay] = useState(days[0]?.id ?? "");
   const navRef = useRef<HTMLElement>(null);
   const linkRefs = useRef<Record<string, HTMLAnchorElement | null>>({});
+  const navigationTargetRef = useRef("");
+  const navigationTimerRef = useRef<number | null>(null);
 
   useEffect(() => {
     let frame = 0;
 
     const updateActiveDay = () => {
       frame = 0;
+      if (navigationTargetRef.current) {
+        setActiveDay(navigationTargetRef.current);
+        return;
+      }
+
       const navBottom = navRef.current?.getBoundingClientRect().bottom ?? 0;
       let nextDay = days[0]?.id ?? "";
 
@@ -44,8 +51,20 @@ export default function DayNavigation({ days }: { days: DayLink[] }) {
       window.removeEventListener("scroll", scheduleUpdate);
       window.removeEventListener("resize", scheduleUpdate);
       if (frame) window.cancelAnimationFrame(frame);
+      if (navigationTimerRef.current !== null) window.clearTimeout(navigationTimerRef.current);
     };
   }, [days]);
+
+  const selectDay = (dayId: string) => {
+    navigationTargetRef.current = dayId;
+    setActiveDay(dayId);
+
+    if (navigationTimerRef.current !== null) window.clearTimeout(navigationTimerRef.current);
+    navigationTimerRef.current = window.setTimeout(() => {
+      navigationTargetRef.current = "";
+      navigationTimerRef.current = null;
+    }, 1600);
+  };
 
   useEffect(() => {
     const nav = navRef.current;
@@ -72,7 +91,7 @@ export default function DayNavigation({ days }: { days: DayLink[] }) {
             className={isActive ? "is-active" : undefined}
             href={`#${day.id}`}
             aria-current={isActive ? "date" : undefined}
-            onClick={() => setActiveDay(day.id)}
+            onClick={() => selectDay(day.id)}
           >
             <b>{day.day}</b><span>{day.date} · {day.weekday}</span>
           </a>

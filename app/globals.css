@@ -357,12 +357,15 @@ h1 {
   transition: background .15s ease, color .15s ease;
 }
 
-.day-nav a:hover { background: var(--ink); color: #fff; }
 .day-nav a.is-active { background: var(--ink); color: #fff; }
 .day-nav b { font: 800 12px/1 var(--font-geist-mono), monospace; }
 .day-nav span { color: var(--muted); font-size: 10px; }
-.day-nav a:hover span,
 .day-nav a.is-active span { color: #fff; }
+
+@media (hover: hover) and (pointer: fine) {
+  .day-nav a:hover { background: var(--ink); color: #fff; }
+  .day-nav a:hover span { color: #fff; }
+}
 
 .day-section {
   scroll-margin-top: 90px;

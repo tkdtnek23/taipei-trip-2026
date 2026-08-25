@@ -49,6 +49,7 @@ test("server-renders the Taipei itinerary", async () => {
   assert.doesNotMatch(html, /class="day-route-link"[^>]+target="_blank"/);
   assert.doesNotMatch(html, /class="route-link"[^>]+target="_blank"/);
   assert.match(html, /aria-current="date"/);
+  assert.equal(html.match(/aria-current="date"/g)?.length, 1);
   assert.match(html, /aria-expanded="true"/);
   assert.match(html, /접기 ↑/);
   assert.match(html, /Google 로그인/);
