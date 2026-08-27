@@ -69,18 +69,23 @@ export default function MemoNotifications({ targets }: { targets: MemoNotificati
   useEffect(() => {
     if (!isOpen) return;
 
-    const closeOnOutsideClick = (event: PointerEvent) => {
+    const closeOnOutsideClick = (event: Event) => {
       if (!containerRef.current?.contains(event.target as Node)) setIsOpen(false);
     };
     const closeOnEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape") setIsOpen(false);
     };
+    const closeOnScroll = () => setIsOpen(false);
 
     document.addEventListener("pointerdown", closeOnOutsideClick);
+    document.addEventListener("click", closeOnOutsideClick);
     document.addEventListener("keydown", closeOnEscape);
+    window.addEventListener("scroll", closeOnScroll, { passive: true, capture: true });
     return () => {
       document.removeEventListener("pointerdown", closeOnOutsideClick);
+      document.removeEventListener("click", closeOnOutsideClick);
       document.removeEventListener("keydown", closeOnEscape);
+      window.removeEventListener("scroll", closeOnScroll, true);
     };
   }, [isOpen]);
 
@@ -148,28 +153,36 @@ export default function MemoNotifications({ targets }: { targets: MemoNotificati
       </button>
 
       {isOpen && (
-        <section className="memo-notification-panel" id="memo-notification-panel" aria-label="메모 알림">
-          <header>
-            <div>
-              <p>MEMO UPDATE</p>
-              <h2>메모 알림</h2>
-            </div>
-            <span>{memos.length}개</span>
-          </header>
-          {memos.length > 0 ? (
-            <div className="memo-notification-list">
-              {memos.map((memo) => (
-                <button type="button" onClick={() => goToMemo(memo)} key={memo.key}>
-                  <span>{memo.day} · {memo.time}</span>
-                  <strong>{memo.title}</strong>
-                  <small>{summarizeMemo(memo.memo)}</small>
-                </button>
-              ))}
-            </div>
-          ) : (
-            <p className="memo-notification-empty">입력된 메모가 없습니다.</p>
-          )}
-        </section>
+        <>
+          <button
+            className="memo-notification-backdrop"
+            type="button"
+            aria-label="메모 알림 닫기"
+            onClick={() => setIsOpen(false)}
+          />
+          <section className="memo-notification-panel" id="memo-notification-panel" aria-label="메모 알림">
+            <header>
+              <div>
+                <p>MEMO UPDATE</p>
+                <h2>메모 알림</h2>
+              </div>
+              <span>{memos.length}개</span>
+            </header>
+            {memos.length > 0 ? (
+              <div className="memo-notification-list">
+                {memos.map((memo) => (
+                  <button type="button" onClick={() => goToMemo(memo)} key={memo.key}>
+                    <span>{memo.day} · {memo.time}</span>
+                    <strong>{memo.title}</strong>
+                    <small>{summarizeMemo(memo.memo)}</small>
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <p className="memo-notification-empty">입력된 메모가 없습니다.</p>
+            )}
+          </section>
+        </>
       )}
     </div>
   );

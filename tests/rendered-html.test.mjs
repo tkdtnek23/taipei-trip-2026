@@ -57,6 +57,7 @@ test("server-renders the Taipei itinerary", async () => {
   assert.equal(html.match(/aria-current="date"/g)?.length, 1);
   assert.match(html, /aria-expanded="true"/);
   assert.match(html, /aria-label="DAY 1 일정 접기"/);
+  assert.match(html, /class="chevron-icon"/);
   assert.match(html, /Google 로그인/);
   assert.doesNotMatch(html, /mo\.myrealtrip\.com\/auj8zx/);
   assert.doesNotMatch(html, /codex-preview|Building your site|SkeletonPreview/i);

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
+import ChevronIcon from "./chevron-icon";
 
 type CollapsibleDayProps = {
   id: string;
@@ -50,7 +51,7 @@ export default function CollapsibleDay({
             aria-controls={contentId}
             onClick={() => setCollapsed((current) => !current)}
           >
-            <span aria-hidden="true">{collapsed ? "⌄" : "⌃"}</span>
+            <ChevronIcon direction={collapsed ? "down" : "up"} />
           </button>
         </div>
       </header>

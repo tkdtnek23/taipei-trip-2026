@@ -3,6 +3,7 @@
 import { useId, useState } from "react";
 import type { ScheduleItem } from "./trip-data";
 import { getScheduleItemKey, useTripSync } from "./firebase-sync-provider";
+import ChevronIcon from "./chevron-icon";
 
 type ScheduleRowProps = {
   dayId: string;
@@ -82,7 +83,7 @@ export default function ScheduleRow({ dayId, index, item }: ScheduleRowProps) {
           onClick={() => setCollapseOverride({ forDone: isDone, collapsed: !isCollapsed })}
           aria-label={`${item.title} 일정 ${isCollapsed ? "펼치기" : "접기"}`}
         >
-          <span aria-hidden="true">{isCollapsed ? "⌄" : "⌃"}</span>
+          <ChevronIcon direction={isCollapsed ? "down" : "up"} />
         </button>
       </td>
       {isCollapsed ? (
@@ -96,7 +97,7 @@ export default function ScheduleRow({ dayId, index, item }: ScheduleRowProps) {
               onClick={() => setCollapseOverride({ forDone: isDone, collapsed: false })}
               aria-label={`${item.title} 일정 펼치기`}
             >
-              <span aria-hidden="true">⌄</span>
+              <ChevronIcon direction="down" />
             </button>
           </div>
         </td>
@@ -111,7 +112,7 @@ export default function ScheduleRow({ dayId, index, item }: ScheduleRowProps) {
               onClick={() => setCollapseOverride({ forDone: isDone, collapsed: true })}
               aria-label={`${item.title} 일정 접기`}
             >
-              <span aria-hidden="true">⌃</span>
+              <ChevronIcon direction="up" />
             </button>
           </td>
           <td className="place-cell" data-label="내용">

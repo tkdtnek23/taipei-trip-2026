@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useTripSync } from "./firebase-sync-provider";
+import ChevronIcon from "./chevron-icon";
 
 type ChecklistGroup = {
   title: string;
@@ -56,7 +57,7 @@ const checklistGroups: ChecklistGroup[] = [
 ];
 
 export default function PrepChecklist() {
-  const { state, ready, user, updateChecklist } = useTripSync();
+  const { state, ready, updateChecklist } = useTripSync();
   const checked = state.checklist;
   const [isOpen, setIsOpen] = useState(false);
 
@@ -90,7 +91,7 @@ export default function PrepChecklist() {
             aria-controls="prep-checklist-content"
             onClick={() => setIsOpen((current) => !current)}
           >
-            <span aria-hidden="true">{isOpen ? "⌃" : "⌄"}</span>
+            <ChevronIcon direction={isOpen ? "up" : "down"} />
           </button>
         </div>
       </header>
@@ -129,7 +130,6 @@ export default function PrepChecklist() {
         </div>
 
         <footer className="prep-footer">
-          <span>{user ? "체크 상태는 Firebase에 자동 저장됩니다." : "로그인 전에는 이 기기에 임시 저장됩니다."}</span>
           <button type="button" onClick={() => updateChecklist([])} disabled={checked.length === 0 || !ready}>
             전체 해제
           </button>
