@@ -45,11 +45,12 @@ export default function CollapsibleDay({
           <button
             className="day-collapse-button"
             type="button"
+            aria-label={`${day} 일정 ${collapsed ? "펼치기" : "접기"}`}
             aria-expanded={!collapsed}
             aria-controls={contentId}
             onClick={() => setCollapsed((current) => !current)}
           >
-            {collapsed ? "펼치기 ↓" : "접기 ↑"}
+            <span aria-hidden="true">{collapsed ? "⌄" : "⌃"}</span>
           </button>
         </div>
       </header>

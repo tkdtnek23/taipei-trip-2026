@@ -104,7 +104,7 @@ export default function Home() {
                     <tr>
                       <th scope="col" aria-label="완료 여부" />
                       <th scope="col">시간</th>
-                      <th scope="col">일정</th>
+                      <th scope="col">내용</th>
                       <th scope="col">이동</th>
                       <th scope="col">비용</th>
                       <th scope="col">메모</th>

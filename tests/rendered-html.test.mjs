@@ -41,7 +41,7 @@ test("server-renders the Taipei itinerary", async () => {
   assert.match(html, /고궁박물원·베이터우 족욕·스린 야시장/);
   assert.match(html, /09:45 B1 손문 동상 반대편 GTS 안내문 앞 집결/);
   assert.doesNotMatch(html, /입장권 28,194원\+투어/);
-  assert.match(html, /<th scope="col">일정<\/th>/);
+  assert.match(html, /<th scope="col">내용<\/th>/);
   assert.doesNotMatch(html, /<th scope="col">비고<\/th>/);
   assert.doesNotMatch(html, /data-label="비고"/);
   assert.match(html, /class="schedule-descriptions"/);
@@ -56,7 +56,7 @@ test("server-renders the Taipei itinerary", async () => {
   assert.match(html, /aria-current="date"/);
   assert.equal(html.match(/aria-current="date"/g)?.length, 1);
   assert.match(html, /aria-expanded="true"/);
-  assert.match(html, /접기 ↑/);
+  assert.match(html, /aria-label="DAY 1 일정 접기"/);
   assert.match(html, /Google 로그인/);
   assert.doesNotMatch(html, /mo\.myrealtrip\.com\/auj8zx/);
   assert.doesNotMatch(html, /codex-preview|Building your site|SkeletonPreview/i);

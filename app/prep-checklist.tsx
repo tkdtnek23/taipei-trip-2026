@@ -85,11 +85,12 @@ export default function PrepChecklist() {
           <button
             className="prep-toggle"
             type="button"
+            aria-label={`여행 준비 체크리스트 ${isOpen ? "접기" : "펼치기"}`}
             aria-expanded={isOpen}
             aria-controls="prep-checklist-content"
             onClick={() => setIsOpen((current) => !current)}
           >
-            {isOpen ? "접기" : "펼치기"}<span aria-hidden="true">{isOpen ? "↑" : "↓"}</span>
+            <span aria-hidden="true">{isOpen ? "⌃" : "⌄"}</span>
           </button>
         </div>
       </header>

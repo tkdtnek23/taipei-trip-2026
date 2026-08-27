@@ -115,11 +115,19 @@ export default function MemoNotifications({ targets }: { targets: MemoNotificati
     }
 
     window.setTimeout(() => {
-      const row = document.getElementById(`schedule-${target.dayId}-${target.index + 1}`);
+      let row = document.getElementById(`schedule-${target.dayId}-${target.index + 1}`);
       if (!row) return;
-      row.scrollIntoView({ behavior: "smooth", block: "center" });
-      row.classList.add("memo-target-highlight");
-      window.setTimeout(() => row.classList.remove("memo-target-highlight"), 1800);
+
+      const expandButton = row.querySelector<HTMLButtonElement>(".schedule-expand-button");
+      expandButton?.click();
+
+      window.setTimeout(() => {
+        row = document.getElementById(`schedule-${target.dayId}-${target.index + 1}`);
+        if (!row) return;
+        row.scrollIntoView({ behavior: "smooth", block: "center" });
+        row.classList.add("memo-target-highlight");
+        window.setTimeout(() => row?.classList.remove("memo-target-highlight"), 1800);
+      }, expandButton ? 60 : 0);
     }, wasHidden ? 80 : 0);
   };
 
