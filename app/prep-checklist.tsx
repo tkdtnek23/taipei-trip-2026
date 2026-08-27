@@ -39,6 +39,7 @@ const checklistGroups: ChecklistGroup[] = [
     title: "통신 · 결제",
     items: [
       { id: "esim", label: "대만 eSIM·로밍 준비", detail: "설치 후 출국 전에는 데이터 회선 전환 금지" },
+      { id: "esim-verification", label: "대만 eSIM 실명인증 완료", detail: "사용 지역은 Taiwan, China 선택" },
       { id: "cards", label: "해외 사용 카드와 소액 현금 준비" },
       { id: "easycard", label: "이지카드 구입·충전 계획 확인" },
     ],

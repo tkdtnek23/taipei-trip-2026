@@ -51,7 +51,11 @@ export default function ScheduleRow({ dayId, index, item }: ScheduleRowProps) {
   };
 
   return (
-    <tr data-completed={isDone ? "true" : undefined}>
+    <tr
+      className="schedule-row-target"
+      id={`schedule-${dayId}-${index + 1}`}
+      data-completed={isDone ? "true" : undefined}
+    >
       <td className="status-cell" data-label="완료 여부">
         <label className="schedule-check" htmlFor={inputId}>
           <input

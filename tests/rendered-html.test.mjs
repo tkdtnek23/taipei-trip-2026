@@ -32,6 +32,11 @@ test("server-renders the Taipei itinerary", async () => {
   assert.match(html, /<title>타이베이 3박 4일 일정표<\/title>/i);
   assert.match(html, /대만 타이베이 3박 4일/);
   assert.match(html, /여행 준비 체크리스트/);
+  assert.match(html, /대만 eSIM 실명인증 완료/);
+  assert.match(html, /Taiwan, China 선택/);
+  assert.match(html, /class="memo-notification-toggle"/);
+  assert.match(html, /aria-label="메모 알림"/);
+  assert.doesNotMatch(html, /Firebase 저장됨|기기 저장됨|로컬에 저장됨/);
   assert.match(html, /화산1914와 다다오청 노을/);
   assert.match(html, /고궁박물원·베이터우 족욕·스린 야시장/);
   assert.match(html, /09:45 B1 손문 동상 반대편 GTS 안내문 앞 집결/);

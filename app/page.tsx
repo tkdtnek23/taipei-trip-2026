@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import CollapsibleDay from "./collapsible-day";
 import DayNavigation from "./day-navigation";
+import MemoNotifications, { type MemoNotificationTarget } from "./memo-notifications";
 import PrepChecklist from "./prep-checklist";
 import ScheduleRow from "./schedule-row";
 import { FirebaseSyncProvider, FirebaseSyncStatus } from "./firebase-sync-provider";
@@ -43,6 +44,20 @@ function foodCardToScheduleItem(card: FoodCard): ScheduleItem {
   };
 }
 
+const memoNotificationTargets: MemoNotificationTarget[] = tripDays.flatMap((day) =>
+  buildTimeline(day).map((entry, index) => {
+    const item = "item" in entry ? entry.item : foodCardToScheduleItem(entry.card);
+
+    return {
+      dayId: day.id,
+      day: day.day,
+      index,
+      time: item.time,
+      title: item.title,
+    };
+  }),
+);
+
 export default function Home() {
   return (
     <FirebaseSyncProvider>
@@ -52,7 +67,10 @@ export default function Home() {
             <span aria-hidden="true">台</span>
             <b>TAIPEI<br />TRIP TABLE</b>
           </a>
-          <FirebaseSyncStatus />
+          <div className="topbar-actions">
+            <MemoNotifications targets={memoNotificationTargets} />
+            <FirebaseSyncStatus />
+          </div>
         </nav>
 
         <header className="planner-hero">
