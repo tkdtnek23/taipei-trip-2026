@@ -795,6 +795,11 @@ tr[data-done="true"] .place-cell > strong {
 }
 .item-actions > a.place-link,
 .item-actions > a.route-link { width: 44px; padding: 9px; }
+.item-actions > a.place-link {
+  border-color: var(--ink);
+  background: var(--surface);
+  color: var(--ink);
+}
 .item-actions > a svg {
   width: 19px;
   height: 19px;
@@ -808,6 +813,7 @@ tr[data-done="true"] .place-cell > strong {
   background: color-mix(in srgb, var(--accent) 7%, var(--surface));
 }
 .item-actions > a:hover { background: var(--accent); color: #fff; }
+.item-actions > a.place-link:hover { background: var(--ink); color: #fff; }
 .related-resources { margin-top: 11px; }
 .related-resources > strong {
   display: block;
