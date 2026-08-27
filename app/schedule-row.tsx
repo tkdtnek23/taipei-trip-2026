@@ -134,8 +134,8 @@ export default function ScheduleRow({ dayId, index, item }: ScheduleRowProps) {
                     rel={opensGoogleMaps(item.map) ? undefined : "noreferrer"}
                   >
                     <svg aria-hidden="true" viewBox="0 0 24 24">
-                      <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z" />
-                      <circle cx="12" cy="10" r="2.5" />
+                      <circle cx="12" cy="12" r="9" />
+                      <path d="M12 10.5v6M12 7.5h.01" />
                     </svg>
                   </a>
                 )}
@@ -157,7 +157,7 @@ export default function ScheduleRow({ dayId, index, item }: ScheduleRowProps) {
             )}
             {visibleLinks && visibleLinks.length > 0 && (
               <div className="related-resources">
-                <strong>관련 링크</strong>
+                <strong>추천</strong>
                 <div>
                   {visibleLinks.map((link) => (
                     <a className="resource-link" href={link.url} target="_blank" rel="noreferrer" key={link.url}>

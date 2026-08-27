@@ -3,6 +3,7 @@ import CollapsibleDay from "./collapsible-day";
 import DayNavigation from "./day-navigation";
 import MemoNotifications, { type MemoNotificationTarget } from "./memo-notifications";
 import PrepChecklist from "./prep-checklist";
+import PullToRefresh from "./pull-to-refresh";
 import ScheduleRow from "./schedule-row";
 import { FirebaseSyncProvider, FirebaseSyncStatus } from "./firebase-sync-provider";
 import { tripDays, tripInfo, type FoodCard, type ScheduleItem, type TripDay } from "./trip-data";
@@ -61,6 +62,7 @@ const memoNotificationTargets: MemoNotificationTarget[] = tripDays.flatMap((day)
 export default function Home() {
   return (
     <FirebaseSyncProvider>
+      <PullToRefresh />
       <main className="planner-shell" id="top">
         <nav className="topbar" aria-label="일정표 상단 메뉴">
           <a className="brand" href="#top">

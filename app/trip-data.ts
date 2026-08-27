@@ -432,9 +432,7 @@ export const tripDays: TripDay[] = [
         booking: "불필요",
         cost: "이지카드 또는 택시비",
         note: "다음 날 체크아웃 준비.",
-        links: [
-          { label: "핀두→호텔", url: mapDirections("25.041614,121.55532", "CityInn Hotel Taipei Station Branch II", "transit") },
-        ],
+        route: mapDirections("25.041614,121.55532", "CityInn Hotel Taipei Station Branch II", "transit"),
       },
     ],
   },
